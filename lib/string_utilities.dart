@@ -1,4 +1,4 @@
-library string_utility;
+library string_utilities;
 
 /// Extension methods for `String` type.
 extension StringExtensions on String {

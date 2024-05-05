@@ -1,4 +1,4 @@
-name: string_utility
+name: string_utilities
 description: "A set of utility functions and extensions for enhanced string operations in Dart and Flutter."
 version: 1.0.0
 homepage: "https://github.com/PratikAmonkar/string_utility"
