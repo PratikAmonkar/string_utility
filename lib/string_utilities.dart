@@ -157,4 +157,171 @@ extension StringExtensions on String {
 
     return a == b;
   }
+
+  /// Checks if the string is a valid email address.
+  ///
+  /// This method uses a regular expression to validate the format of the string as an email.
+  /// It supports common email formats including subdomains and special characters.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// bool valid = "john.doe@example.com".isEmail(); // true
+  /// ```
+
+  bool isEmail() {
+    return RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+        .hasMatch(this);
+  }
+
+  /// Checks if the string is a valid international phone number.
+  ///
+  /// The phone number may optionally start with `+` and should contain 10 to 15 digits.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// bool valid = "+919876543210".isPhoneNumber(); // true
+  /// ```
+
+  bool isPhoneNumber() {
+    return RegExp(r'^\+?[0-9]{10,15}$').hasMatch(this);
+  }
+
+  /// Checks if the string is a valid URL (http, https, or ftp).
+  ///
+  /// This method uses a basic pattern to verify if the string resembles a typical URL.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// bool valid = "https://flutter.dev".isUrl(); // true
+  /// ```
+
+  bool isUrl() {
+    return RegExp(r'^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$').hasMatch(this);
+  }
+
+  /// Checks if the string represents a valid number (integer or decimal).
+  ///
+  /// Example usage:
+  /// ```dart
+  /// bool isNumber = "123.45".isNumeric(); // true
+  /// bool isNotNumber = "abc".isNumeric(); // false
+  /// ```
+
+  bool isNumeric() {
+    return RegExp(r'^-?[0-9]+(\.[0-9]+)?$').hasMatch(this);
+  }
+
+  /// Checks if the string contains only letters and numbers (no symbols or spaces).
+  ///
+  /// Example usage:
+  /// ```dart
+  /// bool isAlphaNum = "abc123".isAlphanumeric(); // true
+  /// bool isNotAlphaNum = "abc123!".isAlphanumeric(); // false
+  /// ```
+
+  bool isAlphanumeric() {
+    return RegExp(r'^[a-zA-Z0-9]+$').hasMatch(this);
+  }
+
+  /// Extracts only numeric characters from the string.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// String digits = "(123) 456-7890".onlyNumbers(); // "1234567890"
+  /// ```
+
+  String onlyNumbers() {
+    return replaceAll(RegExp(r'[^\d]'), '');
+  }
+
+  /// Extracts only alphabetic letters from the string (A–Z, a–z).
+  ///
+  /// Example usage:
+  /// ```dart
+  /// String letters = "abc123!".onlyLetters(); // "abc"
+  /// ```
+
+  String onlyLetters() {
+    return replaceAll(RegExp(r'[^a-zA-Z]'), '');
+  }
+
+  /// Truncates the string to the specified [length] and appends [ellipsis] if needed.
+  ///
+  /// If the string is shorter than [length], it returns the original string.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// String result = "Hello, world!".truncate(5); // "Hello..."
+  /// ```
+
+  String truncate(int length, {String ellipsis = "..."}) {
+    if (this.length <= length) return this;
+    return substring(0, length) + ellipsis;
+  }
+
+  /// Removes all whitespace characters from the string.
+  ///
+  /// This includes spaces, tabs, and newlines.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// String cleaned = " Hello \n World ".removeAllWhitespace(); // "HelloWorld"
+  /// ```
+
+  String removeAllWhitespace() {
+    return replaceAll(RegExp(r'\s+'), '');
+  }
+
+  /// Converts a camelCase or PascalCase string to snake_case.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// String snake = "helloWorld".toSnakeCase(); // "hello_world"
+  /// ```
+
+  String toSnakeCase() {
+    return replaceAllMapped(RegExp(r'[A-Z]'), (match) {
+      return '_${match.group(0)!.toLowerCase()}';
+    });
+  }
+
+  /// Converts a snake_case or kebab-case string to camelCase.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// String camel = "hello_world".toCamelCase(); // "helloWorld"
+  /// ```
+
+  String toCamelCase() {
+    final words = split(RegExp(r'[_\-]'));
+    return words.first + words.skip(1).map((w) => w.toCapitalize()).join();
+  }
+
+  /// Repeats the string [times] number of times and joins the results.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// String repeated = "ha".repeat(3); // "hahaha"
+  /// ```
+
+  String repeat(int times) => List.filled(times, this).join();
+
+  /// Masks a portion of the string with the given [maskChar].
+  ///
+  /// - [start]: The index to start masking (inclusive).
+  /// - [end]: The index to stop masking (exclusive). If -1, masks to the end.
+  /// - [maskChar]: The character to use for masking (default: '*').
+  ///
+  /// Example usage:
+  /// ```dart
+  /// String masked = "1234567890".mask(start: 2, end: 6); // "12****7890"
+  /// ```
+
+  String mask({int start = 0, int end = -1, String maskChar = "*"}) {
+    final e = end == -1 ? length : end;
+    if (start >= e || start >= length) return this;
+
+    final masked = List.filled(e - start, maskChar).join();
+    return substring(0, start) + masked + substring(e);
+  }
 }

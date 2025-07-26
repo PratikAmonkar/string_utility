@@ -21,3 +21,28 @@
 
 - N/A
 
+## [1.1.0] - 2025-07-26
+
+### Added
+
+- `isEmail`: Validates whether a string is a valid email address.
+- `isPhoneNumber`: Checks if the string is a valid international phone number.
+- `isUrl`: Validates if the string is a well-formed URL.
+- `isNumeric`: Checks if the string contains a valid number (integer or decimal).
+- `isAlphanumeric`: Checks if the string contains only letters and numbers.
+- `onlyNumbers`: Extracts only numeric digits from the string.
+- `onlyLetters`: Extracts only alphabetic characters from the string.
+- `truncate`: Truncates the string to a specified length with optional ellipsis.
+- `removeAllWhitespace`: Removes all whitespace characters from the string.
+- `toSnakeCase`: Converts a camelCase or PascalCase string to snake_case.
+- `toCamelCase`: Converts a snake_case or kebab-case string to camelCase.
+- `repeat`: Repeats the string a specified number of times.
+- `mask`: Masks a portion of the string with a given character, useful for sensitive data masking (e.g., credit cards, emails).
+
+### Changed
+
+- N/A
+
+### Fixed
+
+- N/A
