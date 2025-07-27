@@ -11,6 +11,9 @@
 working with strings in Dart and Flutter. The package includes functions for trimming, capitalizing,
 reversing, retrieving words, and many more.
 
+> ⭐️ If you find this package useful, please consider giving it a **star** on [GitHub](https://github.com/PratikAmonkar/string_utility) – it helps others to discover it!
+
+
 ## Features
 
 - `ifEmpty`: Returns a default value if a string is empty.
