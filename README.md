@@ -58,7 +58,7 @@ your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  string_utility: ^1.1.0
+  string_utility: ^1.2.0
 ```
 
 ## ✅ Tests
