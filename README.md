@@ -37,6 +37,19 @@ reversing, retrieving words, and many more.
 - `toCamelCase`: Converts a string to camelCase format.
 - `repeat`: Repeats the string a specified number of times.
 - `mask`: Replaces part of the string with a masking character.
+- `isPalindrome`: Checks if the string is a palindrome, ignoring case and non-alphanumeric characters.
+- `safeReverse`: Reverses a string safely (grapheme/emoji aware).
+- `chunked`: Splits a string into chunks of a given size.
+- `take`: Returns the first n characters of a string.
+- `drop`: Removes the first n characters from a string.
+- `padStartCustom`: Pads the start of the string with a custom pattern until a given width.
+- `padEndCustom`: Pads the end of the string with a custom pattern until a given width.
+- `splitByLength`: Splits a string into fixed-length segments (alias of chunked).
+- `toSentenceCase`: Converts the string to sentence case (first letter uppercase).
+- `containsOnly`: Checks if the string contains only allowed characters.
+- `removeSpecialCharacters`: Removes all non-alphanumeric characters (except space).
+- `toBase64`: Encodes the string to Base64.
+- `fromBase64`: Decodes a Base64 string back to a normal string
 
 ## Getting Started
 
@@ -262,6 +275,118 @@ The `mask` method replaces a portion of the string (from start to end) with the 
 "abcdef".mask(maskChar: "#"); // "######"
 "Short".mask(start: 3); // "Sho*"
 ```
+
+## isPalindrome Example
+
+The `isPalindrome` getter checks if the string reads the same forward and backward, ignoring case and non-alphanumeric characters.
+
+```dart
+"A man, a plan, a canal: Panama".isPalindrome; // true
+"racecar".isPalindrome; // true
+"hello".isPalindrome; // false
+```
+## safeReverse Example
+
+The `safeReverse` method reverses a string while preserving grapheme clusters (e.g., emojis, accented characters).
+
+```dart
+"hello".safeReverse(); // "olleh"
+"👨‍👩‍👧‍👦".safeReverse(); // "👨‍👩‍👧‍👦" (grapheme-safe)
+```
+## chunked Example
+
+The `chunked` method splits the string into chunks of the given size.
+
+```dart
+"abcdef".chunked(2); // ["ab", "cd", "ef"]
+"hello".chunked(3); // ["hel", "lo"]
+```
+## take Example
+
+The `take` method returns the first count characters from the string.
+
+```dart
+"hello".take(2); // "he"
+"flutter".take(10); // "flutter" (clamped to length)
+```
+## drop Example
+
+The `drop` method returns the string after removing the first count characters.
+
+```dart
+"hello".drop(2); // "llo"
+"flutter".drop(10); // "" (clamped)
+```
+
+## padStartCustom Example
+
+The `padStartCustom` method add pads to the beginning of the string to reach a specified width using the provided padding character/string.
+
+```dart
+"42".padStartCustom(5, "0"); // "00042"
+"hello".padStartCustom(10, "-"); // "-----hello"
+```
+
+## padEndCustom Example
+
+The `padEndCustom` method add pads to the end of the string to reach a specified width using the provided padding character/string.
+
+```dart
+"42".padEndCustom(5, "0"); // "42000"
+"hi".padEndCustom(6, "*"); // "hi****"
+```
+
+## splitByLength Example
+
+The `splitByLength` method add the string into substrings of the specified length. It is an alias of chunked.
+
+```dart
+"1234567890".splitByLength(3); // ["123", "456", "789", "0"]
+```
+
+## toSentenceCase Example
+
+The `toSentenceCase` method converts a string to sentence case (first letter uppercase, rest lowercase).
+
+```dart
+"hello WORLD".toSentenceCase(); // "Hello world"
+"FLUTTER".toSentenceCase(); // "Flutter"
+```
+
+## containsOnly Example
+
+The `containsOnly` method checks if a string contains only characters from the allowed set.
+
+```dart
+"12345".containsOnly("0123456789"); // true
+"abc123".containsOnly("abc"); // false
+```
+
+## removeSpecialCharacters Example
+
+The `removeSpecialCharacters` method removes all non-alphanumeric characters (excluding spaces).
+
+```dart
+"Hello, World! 123.".removeSpecialCharacters(); // "Hello World 123"
+"@#\$%^".removeSpecialCharacters(); // ""
+```
+
+## toBase64 Example
+
+The `toBase64` method encodes the string into a Base64 string.
+
+```dart
+"hello".toBase64(); // "aGVsbG8="
+```
+
+## fromBase64 Example
+
+Then `fromBase64` method decodes a Base64 string back to a regular string.
+
+```dart
+"aGVsbG8=".fromBase64(); // "hello"
+```
+
 
 ## 🤝 Contributing
 

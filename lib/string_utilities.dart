@@ -1,5 +1,8 @@
 library string_utilities;
 
+import 'dart:convert';
+import 'package:characters/characters.dart';
+
 /// Extension methods for `String` type.
 extension StringExtensions on String {
   /// Returns the given default value if the string is empty; otherwise, returns the string itself.
@@ -323,5 +326,137 @@ extension StringExtensions on String {
 
     final masked = List.filled(e - start, maskChar).join();
     return substring(0, start) + masked + substring(e);
+  }
+
+  /// Checks if the string is a palindrome (ignores case and non-alphanumeric characters).
+  ///
+  /// Example:
+  /// ```dart
+  /// "A man, a plan, a canal: Panama".isPalindrome; // true
+  /// ```
+  bool get isPalindrome {
+    final sanitized = toLowerCase().replaceAll(RegExp(r'[^a-z0-9]'), '');
+    return sanitized == sanitized.split('').reversed.join();
+  }
+
+  /// Reverses the string safely using grapheme clusters (handles emojis and complex characters).
+  ///
+  /// Example:
+  /// ```dart
+  /// "hello 👋".safeReverse(); // "👋 olleh"
+  /// ```
+  String safeReverse() {
+    return characters.toList().reversed.join();
+  }
+
+  /// Splits the string into fixed-size chunks of [size].
+  ///
+  /// Example:
+  /// ```dart
+  /// "Flutter".chunked(2); // ["Fl", "ut", "te", "r"]
+  /// ```
+  List<String> chunked(int size) {
+    final chunks = <String>[];
+    for (var i = 0; i < length; i += size) {
+      chunks.add(substring(i, i + size > length ? length : i + size));
+    }
+    return chunks;
+  }
+
+  /// Returns the first [count] characters of the string.
+  ///
+  /// Example:
+  /// ```dart
+  /// "Hello".take(2); // "He"
+  /// ```
+  String take(int count) => substring(0, count.clamp(0, length));
+
+  /// Removes the first [count] characters from the string.
+  ///
+  /// Example:
+  /// ```dart
+  /// "Hello".drop(2); // "llo"
+  /// ```
+  String drop(int count) => substring(count.clamp(0, length));
+
+  /// Pads the string from the start until it reaches [width] using [padding] character(s).
+  ///
+  /// Example:
+  /// ```dart
+  /// "42".padStartCustom(5, "0"); // "00042"
+  /// ```
+  String padStartCustom(int width, [String padding = ' ']) {
+    if (length >= width) return this;
+    return padding * ((width - length) ~/ padding.length) + this;
+  }
+
+  /// Pads the string at the end until it reaches [width] using [padding] character(s).
+  ///
+  /// Example:
+  /// ```dart
+  /// "Hi".padEndCustom(5, "_"); // "Hi___"
+  /// ```
+  String padEndCustom(int width, [String padding = ' ']) {
+    if (length >= width) return this;
+    return this + padding * ((width - length) ~/ padding.length);
+  }
+
+  /// Splits the string by [size]-length segments (alias of `chunked`).
+  ///
+  /// Example:
+  /// ```dart
+  /// "abcdef".splitByLength(3); // ["abc", "def"]
+  /// ```
+  List<String> splitByLength(int size) => chunked(size);
+
+  /// Converts the first letter of the string to uppercase and the rest to lowercase.
+  ///
+  /// Example:
+  /// ```dart
+  /// "hELLO".toSentenceCase(); // "Hello"
+  /// ```
+  String toSentenceCase() {
+    if (isEmpty) return this;
+    return this[0].toUpperCase() + substring(1).toLowerCase();
+  }
+
+  /// Returns `true` if the string only contains characters from [allowedChars].
+  ///
+  /// Example:
+  /// ```dart
+  /// "12345".containsOnly("123"); // false
+  /// ```
+  bool containsOnly(String allowedChars) {
+    return RegExp('^[${RegExp.escape(allowedChars)}]*\$').hasMatch(this);
+  }
+
+  /// Removes all special characters, keeping only letters, numbers, and spaces.
+  ///
+  /// Example:
+  /// ```dart
+  /// "Hello@World!".removeSpecialCharacters(); // "HelloWorld"
+  /// ```
+  String removeSpecialCharacters() {
+    return replaceAll(RegExp(r'[^a-zA-Z0-9 ]'), '');
+  }
+
+  /// Encodes the string into a Base64 representation.
+  ///
+  /// Example:
+  /// ```dart
+  /// "Hello".toBase64(); // "SGVsbG8="
+  /// ```
+  String toBase64() {
+    return base64Encode(utf8.encode(this));
+  }
+
+  /// Decodes the string from a Base64-encoded format.
+  ///
+  /// Example:
+  /// ```dart
+  /// "SGVsbG8=".fromBase64(); // "Hello"
+  /// ```
+  String fromBase64() {
+    return utf8.decode(base64Decode(this));
   }
 }

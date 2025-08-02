@@ -25,4 +25,9 @@ void main() {
   print('Repeat: ${'ha'.repeat(3)}'); // hahaha
   print(
       'Mask: ${'1234567812345678'.mask(start: 4, end: 12)}'); // 1234********5678
+
+  print('\n--- Palindrome Check ---');
+  print(
+      'Is palindrome: ${'A man, a plan, a canal: Panama'.isPalindrome}'); // true
+  print('Is palindrome: ${'Hello, World!'.isPalindrome}'); // false
 }

@@ -1,3 +1,29 @@
+## [1.2.0] - 2025-08-02
+
+### Added
+
+- `isPalindrome`: Checks if the string is a palindrome, ignoring case and non-alphanumeric characters.
+- `safeReverse`: Reverses a string safely, preserving grapheme clusters (e.g., emojis).
+- `chunked`: Splits a string into equal-sized chunks.
+- `take`: Returns the first `n` characters from the string.
+- `drop`: Returns the string after removing the first `n` characters.
+- `padStartCustom`: Adds custom padding to the start of the string to reach a target width.
+- `padEndCustom`: Adds custom padding to the end of the string to reach a target width.
+- `splitByLength`: Alias of `chunked`, splits the string into fixed-size parts.
+- `toSentenceCase`: Converts the string to sentence case.
+- `containsOnly`: Checks if the string contains only allowed characters.
+- `removeSpecialCharacters`: Removes all non-alphanumeric characters (excluding spaces).
+- `toBase64`: Encodes the string to a Base64 format.
+- `fromBase64`: Decodes a Base64 string back into plain text.
+
+### Changed
+
+- Updated `README.md` ,`string_utilities_example.dart` and `string_utilities_test.dart` to include documentation , examples and test cases for new functions.
+
+### Fixed
+
+- N/A
+
 ## [1.1.1] - 2025-07-26
 
 ### Added

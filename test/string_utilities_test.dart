@@ -107,5 +107,67 @@ void main() {
       expect('1234567890'.mask(start: 2, end: 6), equals('12****7890'));
       expect('short'.mask(start: 5), equals('short'));
     });
+
+    test('isPalindrome', () {
+      expect('A man, a plan, a canal: Panama'.isPalindrome, isTrue);
+      expect('Hello'.isPalindrome, isFalse);
+    });
+
+    test('safeReverse', () {
+      expect('hello 👋'.safeReverse(), equals('👋 olleh'));
+    });
+
+    test('chunked', () {
+      expect('Flutter'.chunked(2), equals(['Fl', 'ut', 'te', 'r']));
+    });
+
+    test('take', () {
+      expect('Hello'.take(2), equals('He'));
+    });
+
+    test('drop', () {
+      expect('Hello'.drop(2), equals('llo'));
+    });
+
+    test('padStartCustom', () {
+      expect('42'.padStartCustom(5, '0'), equals('00042'));
+      expect('42'.padStartCustom(2, '0'), equals('42'));
+    });
+
+    test('padEndCustom', () {
+      expect('Hi'.padEndCustom(5, '_'), equals('Hi___'));
+      expect('Hi'.padEndCustom(2, '_'), equals('Hi'));
+    });
+
+    test('splitByLength', () {
+      expect('abcdef'.splitByLength(3), equals(['abc', 'def']));
+    });
+
+    test('toSentenceCase', () {
+      expect('hELLO'.toSentenceCase(), equals('Hello'));
+      expect(''.toSentenceCase(), equals(''));
+    });
+
+    test('containsOnly', () {
+      expect('12345'.containsOnly('1234567890'), isTrue);
+      expect('abc123'.containsOnly('abc'), isFalse);
+    });
+
+    test('removeSpecialCharacters', () {
+      expect('Hello@World!'.removeSpecialCharacters(), equals('HelloWorld'));
+    });
+
+    test('toBase64', () {
+      expect('Hello'.toBase64(), equals('SGVsbG8='));
+    });
+
+    test('fromBase64', () {
+      expect('SGVsbG8='.fromBase64(), equals('Hello'));
+    });
+
+    test('mask', () {
+      expect('1234567890'.mask(start: 2, end: 6), equals('12****7890'));
+      expect('short'.mask(start: 5), equals('short'));
+    });
   });
 }
